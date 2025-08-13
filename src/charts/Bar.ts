@@ -4,9 +4,8 @@ import { KC } from '../types/kc'
 export class Bar implements KC.Bar {
     options: KC.BarOptions
     layer: Konva.Layer
-    private stage: Konva.Stage
 
-    constructor(container: string | HTMLDivElement, options: KC.BarOptions) {
+    constructor(options: KC.BarOptions) {
         this.options = {
             width: 400,
             height: 300,
@@ -16,12 +15,6 @@ export class Bar implements KC.Bar {
             ...options,
         }
         this.layer = new Konva.Layer()
-        this.stage = new Konva.Stage({
-            container,
-            width: this.options.width!,
-            height: this.options.height!,
-        })
-        this.stage.add(this.layer)
         this.drawBar()
     }
 

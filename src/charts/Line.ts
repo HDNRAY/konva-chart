@@ -1,12 +1,11 @@
 import Konva from 'konva'
 import { KC } from '../types/kc'
 
-export class LineChart implements KC.Line {
+export class Line implements KC.Line {
     options: KC.LineOptions
     layer: Konva.Layer
-    private stage: Konva.Stage
 
-    constructor(container: string | HTMLDivElement, options: KC.LineOptions) {
+    constructor(options: KC.LineOptions) {
         this.options = {
             width: 400,
             height: 300,
@@ -17,12 +16,6 @@ export class LineChart implements KC.Line {
             ...options,
         }
         this.layer = new Konva.Layer()
-        this.stage = new Konva.Stage({
-            container,
-            width: this.options.width!,
-            height: this.options.height!,
-        })
-        this.stage.add(this.layer)
         this.drawLine()
     }
 
@@ -35,10 +28,17 @@ export class LineChart implements KC.Line {
         const minValue = Math.min(...data)
         const stepX = chartWidth / (data.length - 1)
 
-        // Draw axes
+        // Draw axes (extend lines for more space)
         this.layer.add(
             new Konva.Line({
-                points: [margin, margin, margin, height! - margin, width! - margin, height! - margin],
+                points: [
+                    margin,
+                    margin,
+                    margin,
+                    height! - margin + 30, // extend y axis below chart
+                    width! - margin + 30,
+                    height! - margin + 30, // extend x axis to the right
+                ],
                 stroke: axisColor,
                 strokeWidth: 2,
             })
