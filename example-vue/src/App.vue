@@ -1,47 +1,39 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import PieChart from './components/PieChart.vue'
-// Future: import BarChart from './components/BarChart.vue'
 
+import BarChart from './components/BarChart.vue'
+import LineChart from './components/LineChart.vue'
 const chartType = ref('pie')
 </script>
 
 <template>
-    <div class="app-container">
+
+    <div class="app-simple">
         <aside class="sidebar">
-            <nav>
-                <ul>
-                    <li :class="{ active: chartType === 'pie' }" @click="chartType = 'pie'">Pie Chart</li>
-                    <!-- Future: <li :class="{active: chartType === 'bar'}" @click="chartType = 'bar'">Bar Chart</li> -->
-                </ul>
-            </nav>
+            <ul>
+                <li :class="{ active: chartType === 'pie' }" @click="chartType = 'pie'">Pie Chart</li>
+                <li :class="{ active: chartType === 'bar' }" @click="chartType = 'bar'">Bar Chart</li>
+                <li :class="{ active: chartType === 'line' }" @click="chartType = 'line'">Line Chart</li>
+            </ul>
         </aside>
         <main class="main-content">
-            <div class="header-logos">
-                <a href="https://vite.dev" target="_blank">
-                    <img src="/vite.svg" class="logo" alt="Vite logo" />
-                </a>
-                <a href="https://vuejs.org/" target="_blank">
-                    <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-                </a>
-            </div>
-            <div class="chart-area">
-                <PieChart v-if="chartType === 'pie'" />
-                <!-- Future: <BarChart v-if="chartType === 'bar'" /> -->
-            </div>
+            <PieChart v-if="chartType === 'pie'" />
+            <BarChart v-if="chartType === 'bar'" />
+            <LineChart v-if="chartType === 'line'" />
         </main>
     </div>
+
 </template>
 
 <style scoped>
-.app-container {
+.app-simple {
     display: flex;
     min-height: 100vh;
-    background: #fafbfc;
 }
 
 .sidebar {
-    width: 160px;
+    width: 120px;
     background: #f4f4f4;
     border-right: 1px solid #e0e0e0;
     padding-top: 2em;
@@ -53,7 +45,7 @@ const chartType = ref('pie')
 }
 
 .sidebar li {
-    padding: 1em 1.5em;
+    padding: 0.75em 1em;
     cursor: pointer;
     color: #333;
     border-radius: 4px;
@@ -63,43 +55,14 @@ const chartType = ref('pie')
 
 .sidebar li.active,
 .sidebar li:hover {
-    background: #e0e7ff;
-    color: #2563eb;
+    text-decoration: underline;
 }
 
 .main-content {
     flex: 1;
     padding: 2em;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.header-logos {
-    display: flex;
-    gap: 2em;
-    margin-bottom: 2em;
-}
-
-.logo {
-    height: 4em;
-    padding: 1em;
-    will-change: filter;
-    transition: filter 300ms;
-}
-
-.logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
-}
-
-.chart-area {
-    width: 100%;
-    display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 </style>

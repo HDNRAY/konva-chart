@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Konva from 'konva'
-import { Pie } from '../../../dist/index'
+import { Pie } from '../../../src/charts/Pie'
 import { onMounted } from 'vue'
 
 onMounted(() => {
@@ -10,6 +10,9 @@ onMounted(() => {
         radius: 150,
         data: [30, 70, 45, 55],
         colors: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+        labels: ['Apple', 'Banana', 'Orange', 'Grape'],
+        labelFontSize: 18,
+        labelColor: '#222',
     }
     const stage = new Konva.Stage({
         container: 'pie-container',
